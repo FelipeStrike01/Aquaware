@@ -1,0 +1,73 @@
+# Pastas de compilação
+build/
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+Win32/
+ARM64/
+.vs/
+
+# Artefatos de compilação
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.map
+*.idb
+*.pch
+*.iobj
+*.ipdb
+*.tlog
+*.lastbuildstate
+
+# Artefatos do driver
+*.sys
+*.cat
+*.cer
+*.cdf
+*.inf.bak
+
+# Arquivos intermediários
+*.d
+*.o
+*.a
+*.so
+*.out
+
+# Visual Studio
+.vscode/
+ipch/
+*.user
+*.suo
+*.vcxproj.user
+*.sln.user
+*.VC.db
+*.VC.VC.opendb
+*.sdf
+*.ncb
+*.cache
+*.opendb
+*.vs
+
+# Ferramentas e dependências
+packages/
+node_modules/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+*.bak
+*~
+.DS_Store
+Thumbs.db
+
+# Binários e símbolos
+*.sym
+*.wdb

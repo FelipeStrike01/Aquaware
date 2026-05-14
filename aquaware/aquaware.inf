@@ -1,0 +1,81 @@
+;
+; km.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider=%ManufacturerName%
+CatalogFile=km.cat
+DriverVer=06/30/2025,1.0.0.0
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+km_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+km.sys  = 1,,
+WdfCoInstaller01033.dll=1
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTx86,NTamd64
+
+[Standard.NTx86]
+%km.DeviceDesc%=km_Device, Root\kmDevice
+
+[Standard.NTamd64]
+%km.DeviceDesc%=km_Device, Root\kmDevice
+
+[km_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+km.sys
+
+;-------------- Service installation
+[km_Device.NT.Services]
+AddService = km,%SPSVCINST_ASSOCSERVICE%, km_Service_Inst
+
+; -------------- km driver install sections
+[km_Service_Inst]
+DisplayName    = %km.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\km.sys
+
+;
+;--- km_Device Coinstaller installation ------
+;
+
+[km_Device.NT.CoInstallers]
+AddReg=km_Device_CoInstaller_AddReg
+CopyFiles=km_Device_CoInstaller_CopyFiles
+
+[km_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01033.dll,WdfCoInstaller"
+
+[km_Device_CoInstaller_CopyFiles]
+WdfCoInstaller01033.dll
+
+[km_Device.NT.Wdf]
+KmdfService =  km, km_wdfsect
+
+[km_wdfsect]
+KmdfLibraryVersion = 1.33
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="laith"
+DiskName = "km Installation Disk"
+km.DeviceDesc = "km Virtual Device"
+km.SVCDESC = "km Kernel Service"
